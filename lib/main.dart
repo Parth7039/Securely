@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:securely/Authentication/AuthenticationPage.dart';
+import 'package:securely/Vault/pages/vaultpage.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthenticationPage()
+      home: Vaultpage()
     );
   }
 }
