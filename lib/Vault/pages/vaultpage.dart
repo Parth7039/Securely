@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:securely/Settings/settingspage.dart';
-import 'package:securely/Vault/pages/vaultpage.dart';
-import '../components/customNavigationBar.dart';
+import 'package:securely/Vault/pages/encryptionpage.dart';
+import 'package:securely/Vault/pages/integritypage.dart';
+import 'package:securely/Vault/pages/logspage.dart';
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key});
+import '../../components/customNavigationBar.dart';
+
+class Vaultpage extends StatefulWidget {
+  const Vaultpage({super.key});
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  State<Vaultpage> createState() => _VaultpageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _VaultpageState extends State<Vaultpage> {
 
-  int _currentIndex = 0;
+  int _currentIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -26,46 +28,48 @@ class _DashboardPageState extends State<DashboardPage> {
         },
         items: [
           NavigationItem(
-            icon: Icons.home_rounded,
-            label: 'Home',
+            icon: Icons.check,
+            label: 'Integrity',
             onTap: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => Settingspage()),
+                MaterialPageRoute(builder: (_) => Integritypage()),
               );
+
               // Reset after return
               if (mounted) setState(() => _currentIndex = -1);
             },
           ),
           NavigationItem(
-            icon: Icons.lock_person_rounded,
-            label: 'Vault',
+            icon: Icons.enhanced_encryption_outlined,
+            label: 'Encryption',
             onTap: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => Vaultpage()),
+                MaterialPageRoute(builder: (_) => Encryptionpage()),
               );
+
               // Reset after return
               if (mounted) setState(() => _currentIndex = -1);
             },
           ),
           NavigationItem(
             icon: Icons.settings,
-            label: 'Settings',
+            label: 'Logs',
             onTap: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => Settingspage()),
+                MaterialPageRoute(builder: (_) => Logspage()),
               );
+
               // Reset after return
               if (mounted) setState(() => _currentIndex = -1);
             },
           ),
         ],
       ),
-      backgroundColor: Colors.black,
       body: Center(
-        child: Text('This is Dashboard'),
+        child: Text('This is vault page'),
       ),
     );
   }
