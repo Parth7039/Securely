@@ -1,11 +1,10 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import '../../components/customNavigationBar.dart';
 
 class Vaultpage extends StatefulWidget {
   const Vaultpage({super.key});
@@ -20,6 +19,7 @@ class _VaultpageState extends State<Vaultpage> with TickerProviderStateMixin {
   String searchQuery = '';
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  static const _channel = MethodChannel('secure_vault');
 
   @override
   void initState() {
@@ -588,13 +588,18 @@ Future<bool> pickAndSaveFile() async {
       await sourceFile.copy(destinationPath);
 
       // Delete the original file after successful copy
+      // Delete the original file after successful copy
       try {
         await sourceFile.delete();
+
+        // Optional: Verify if deletion succeeded
+        if (await sourceFile.exists()) {
+          print("File was not deleted successfully.");
+        }
       } catch (e) {
-        // If we can't delete the original file (maybe it's from a protected location),
-        // we still consider the operation successful since the file was copied
         print("Warning: Could not delete original file: $e");
       }
+
 
       return true;
     }
