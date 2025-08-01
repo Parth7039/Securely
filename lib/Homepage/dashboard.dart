@@ -43,7 +43,7 @@ class _DashboardPageState extends State<DashboardPage> {
             onTap: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => Vaultpage()),
+                MaterialPageRoute(builder: (_) => VaultPage()),
               );
               // Reset after return
               if (mounted) setState(() => _currentIndex = -1);
